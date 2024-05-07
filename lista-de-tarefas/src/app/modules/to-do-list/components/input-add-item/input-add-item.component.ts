@@ -13,7 +13,7 @@ export class InputAddItemComponent {
 
   @ViewChild("inputText") public inputText!: ElementRef; // acessa o elemento HTML que possui esse identificador
   
-  @Output() public outputItems = new EventEmitter<IListItems>();
+  @Output() public outputAddItem = new EventEmitter<IListItems>();
   
   public focusAndAddItem(value: string){
     if(value){
@@ -21,12 +21,12 @@ export class InputAddItemComponent {
       this.inputText.nativeElement.value = ''; // limpa o input após o "envio"
 
       // gera o id dos items
-      const dataAtual = new Date();
-      const timestamp = dataAtual.getTime();
+      const currentDate = new Date();
+      const timestamp = currentDate.getTime();
       const id = `ID ${timestamp}`;
 
       // envia para fora estas propriedades
-      this.outputItems.emit({
+      this.outputAddItem.emit({
         id,
         checked: false,
         value

@@ -14,15 +14,18 @@ import { JsonPipe } from '@angular/common';
 export class ListComponent {
   public addItem = signal(true);
 
-  #setListItems = signal<IListItems[]>([this.#parseItem()]);
-  getListItems = this.#setListItems.asReadonly();
+  #setListItems = signal<IListItems[]>(this.#parseItem());
+  public getListItems = this.#setListItems.asReadonly();
 
   #parseItem(){
-    return JSON.parse(localStorage.getItem('@my-list') || '[]')
+    return JSON.parse(localStorage.getItem('@my-list') || '[]')// traz como array de objetos
   }
 
   public getInputAndAddItem(value: IListItems){
-    localStorage.setItem('@my-list', JSON.stringify([value])
-    )
+    localStorage.setItem('@my-list', JSON.stringify([...this.#setListItems(), value])
+    );
+
+    return this.#setListItems.set(this.#parseItem())
   }
+
 }

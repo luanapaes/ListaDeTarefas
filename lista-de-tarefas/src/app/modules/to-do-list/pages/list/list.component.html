@@ -1,4 +1,4 @@
-@if (!getListItems().length) {
+@if (!getListItems().length) {<!-- se a lista estiver vazia exibe a imagem e o botão --->
     <div class="container">
         <img src="assets/img/task-list-null.png" alt="sua lista está vazia - imagem ilustrativa" loading="eager">
     
@@ -8,7 +8,17 @@
         <app-input-add-item [inputListItems]="getListItems()" (outputAddItem)="getInputAndAddItem($event)" />
         }
     </div>
-} @else {
-            <app-input-add-item [inputListItems]="getListItems()" (outputAddItem)="getInputAndAddItem($event)" />
+} @else {<!-- se a lista tiver items cadastrados esta parte é exibida-->
+    <app-input-add-item [inputListItems]="getListItems()" (outputAddItem)="getInputAndAddItem($event)" />
+
+    <main class="container">
+        <p>{{getListItems()| json}}</p>
+    </main>
+
+    <footer>
+        <button class="btn btn-danger" (click)="deletarTodosItems()">
+            Deletar todas as tarefas
+        </button>
+    </footer>
 }
 

@@ -7,7 +7,7 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [InputAddItemComponent],
+  imports: [InputAddItemComponent, JsonPipe],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
@@ -25,6 +25,11 @@ export class ListComponent {
     localStorage.setItem('@my-list', JSON.stringify([...this.#setListItems(), value])
     );
 
+    return this.#setListItems.set(this.#parseItem())
+  }
+
+  public deletarTodosItems(){
+    localStorage.removeItem('@my-list');
     return this.#setListItems.set(this.#parseItem())
   }
 
